@@ -6,7 +6,9 @@ if(!defined('GRAD_PAGE')) {
 require_once __DIR__ . '/Seat.php';
 require_once __DIR__ . '/Student.php';
 
-function get_seat_label(Seat $seat) {
+function get_seat_label(Seat $seat=null) {
+    if (!$seat) return '';
+
     $row_letter = chr(ord('A')+($seat->coordY() % 26));
     return $row_letter.($seat->coordX()+1);
 }
@@ -54,7 +56,7 @@ function get_all_seats_and_students() {
 
         if($row['st_id']) {
             $student = Student::loadFully($row['st_id'], $row['student_id'], $row['first_name'],
-                $row['last_name'], $row['phonetic_name']);
+                $row['last_name'], $row['phonetic_name'], $row['gender']);
         }
 
         $ret[] = array($seat, $student);

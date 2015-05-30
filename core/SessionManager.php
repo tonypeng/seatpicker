@@ -12,7 +12,7 @@ class SessionManager
     {
         $this->_driver = $driver;
 
-        $this->_session = new Session(-1, '', '', '', '', false);
+        $this->_session = new Session(-1, '', '', '', '', false, 0, false);
 
         if($req->hasCookie(self::SESSION_COOKIE_NAME)) {
             $val = $req->cookie(self::SESSION_COOKIE_NAME);
@@ -38,7 +38,7 @@ class SessionManager
 
         $this->_driver->signout($this->getSession()->getUserID());
 
-        $this->_session = new Session(-1, '', '', '', '', false);
+        $this->_session = new Session(-1, '', '', '', '', false, 0, false);
     }
 
     public function signIn($username, $password, $duration=-1)
@@ -68,7 +68,7 @@ class SessionManager
                 Response::setCookie(self::SESSION_COOKIE_NAME, $session_key, $expire_time);
 
                 return ($this->_session =
-                    new Session($row['id'], $row['student_id'], $row['first_name'], $row['last_name'], $row['phonetic_name'])
+                    new Session($row['id'], $row['student_id'], $row['first_name'], $row['last_name'], $row['phonetic_name'], $row['gender'], $row['onboarded'])
                 );
             }
         }

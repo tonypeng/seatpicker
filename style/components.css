@@ -1,7 +1,6 @@
 .seat-picker {
     padding: 8px;
-    display: inline-block;
-    width: 800px;
+    min-width: 600px;
     text-align: left;
 }
 

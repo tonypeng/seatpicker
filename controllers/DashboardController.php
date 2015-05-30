@@ -23,7 +23,7 @@ class DashboardController extends SiteController {
 
         $student_seat = get_student_seat($session->getUserID());
 
-        if ($student_seat == null) {
+        if (!$session->getOnboarded()) {
             throw new RedirectException(linkto('/onboarding'));
         }
 
@@ -98,11 +98,11 @@ class DashboardController extends SiteController {
         $seatPicker->setRenderUserRows(true);
 
 ?>
-
-        <p class="title">You are currently seated at: <strong>A1</strong>.</p>
-        <br />
         <div class="center-text">
-            <?= $seatPicker->renderView() ?>
+            <div class="center-wrap">
+                <p class="title">You are currently seated at: <strong><?= get_seat_label($studentSeat) ?></strong>.</p>
+                <?= $seatPicker->renderView() ?>
+            </div>
         </div>
 <?php
 

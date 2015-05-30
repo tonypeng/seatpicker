@@ -18,7 +18,7 @@ class DatabaseBackedSessionDriver implements ISessionDriver
 
         $row = $stmt->fetch();
 
-        return new Session($row['id'], $row['student_id'], $row['first_name'], $row['last_name'], $row['phonetic_name']);
+        return new Session($row['id'], $row['student_id'], $row['first_name'], $row['last_name'], $row['phonetic_name'], $row['gender'], $row['onboarded']);
     }
 
     public function write($user_id, $username, $expire_time)

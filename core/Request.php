@@ -87,7 +87,7 @@ class Request {
     }
 
     public function hasval($param_name) {
-        return isset($this->_params[$param_name]) && ($this->_params[$param_name].'');
+        return isset($this->_params[$param_name]) && (strlen($this->_params[$param_name].'') > 0);
     }
 
     public function getInt($param_name, $default=null) {

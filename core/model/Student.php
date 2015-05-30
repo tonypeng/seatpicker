@@ -8,23 +8,25 @@ class Student extends Model {
         return new Student($id);
     }
 
-    public static function loadFully($id, $studentId, $firstName, $lastName, $phoneticName) {
+    public static function loadFully($id, $studentId, $firstName, $lastName, $phoneticName, $gender) {
         $student = new Student(Model::NO_ID);
         $student->setId($id);
         $student->_studentId = $studentId;
         $student->_firstName = $firstName;
         $student->_lastName = $lastName;
         $student->_phoneticName = $phoneticName;
+        $student->_gender = $gender;
 
         return $student;
     }
 
-    public static function with($studentId, $firstName, $lastName, $phoneticName) {
+    public static function with($studentId, $firstName, $lastName, $phoneticName, $gender) {
         $student = new Student(Model::NO_ID);
         $student->_studentId = $studentId;
         $student->_firstName = $firstName;
         $student->_lastName = $lastName;
         $student->_phoneticName = $phoneticName;
+        $student->_gender = $gender;
 
         return $student;
     }
@@ -33,6 +35,7 @@ class Student extends Model {
     private $_firstName;
     private $_lastName;
     private $_phoneticName;
+    private $_gender;
 
     protected function __construct($id) {
         parent::__construct($id);
@@ -56,6 +59,10 @@ class Student extends Model {
 
     public function phoneticName() {
         return $this->_phoneticName;
+    }
+
+    public function gender() {
+        return $this->_gender;
     }
 
     public function fetch() {
