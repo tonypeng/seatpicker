@@ -25,6 +25,8 @@ $controllerMap = array(
     'login/submit' => 'LoginSubmitController',
     'signout' => 'SignoutController',
     'ajax/post_seat' => 'PostSeatController',
+    'intern/create_seats' => 'CreateSeatsController',
+    'intern/create_students' => 'CreateStudentsController',
 );
 
 $controller_name = $controllerMap['404'];

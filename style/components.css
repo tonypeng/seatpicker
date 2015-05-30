@@ -1,24 +1,46 @@
 .seat-picker {
     padding: 8px;
     min-width: 600px;
+    width: 1280px;
     text-align: left;
 }
 
-.seat-picker table {
+.seat-picker .sp-table {
     border-spacing: 2px;
     display: inline-block;
-    border: 1px solid #eee;
 }
 
-.seat-picker table tr td {
+.seat-picker .sp-table tr th {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+}
+
+.seat-picker .sp-table tr td {
+     width: 14px;
+     height: 14px;
+     vertical-align: middle;
+ }
+
+.seat-picker .sp-table tr td.editable {
     width: 14px;
     height: 14px;
     vertical-align: middle;
     cursor: pointer;
 }
 
-.seat-picker table tr td.highlight {
+.seat-picker .sp-table tr td.highlight {
     background-color: yellow;
+}
+
+.seat-picker .sp-render-area {
+    position: relative;
+    height: 120px;
+    width: 1280px;
+}
+
+.seat-picker .sp-render-area .block {
+    position: absolute;
 }
 
 .seat-picker .sp-student-row-container {

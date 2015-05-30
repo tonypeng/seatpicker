@@ -97,10 +97,13 @@ class DashboardController extends SiteController {
         $seatPicker = new SeatPickerComponent('dashboard_seat_picker', $userId, $seats, false);
         $seatPicker->setRenderUserRows(true);
 
+        $message = $studentSeat ? 'You are currently seated at: <strong>'.get_seat_label($studentSeat).'</strong>.'
+            : 'You haven\'t picked a seat yet! Click '.makelink('/dashboard?page=edit', 'here').' to do so.';
+
 ?>
         <div class="center-text">
             <div class="center-wrap">
-                <p class="title">You are currently seated at: <strong><?= get_seat_label($studentSeat) ?></strong>.</p>
+                <p class="title"><?= $message ?></p>
                 <?= $seatPicker->renderView() ?>
             </div>
         </div>
@@ -118,8 +121,13 @@ class DashboardController extends SiteController {
         $seatPicker = new SeatPickerComponent('dashboard_seat_picker', $userId, $seats, true);
 
         ?>
-            <br />
-            <?= $seatPicker->renderView() ?>
+        <div class="center-text">
+            <div class="center-wrap">
+                <p class="title">Click on an available seat to pick it.</p>
+                <span>Blue seats are reserved for boys and gray seats are reserved for girls.</span>
+                <?= $seatPicker->renderView() ?>
+            </div>
+        </div>
         <?php
 
         return ob_get_clean();
