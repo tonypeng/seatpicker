@@ -1,0 +1,60 @@
+.seat-picker {
+    padding: 8px;
+    display: inline-block;
+    width: 800px;
+    text-align: left;
+}
+
+.seat-picker table {
+    border-spacing: 2px;
+    display: inline-block;
+    border: 1px solid #eee;
+}
+
+.seat-picker table tr td {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.seat-picker table tr td.highlight {
+    background-color: yellow;
+}
+
+.seat-picker .sp-student-row-container {
+    /*border: 1px solid #d0d0d0;*/
+    border-radius: 2px;
+}
+
+.seat-picker .sp-student-row-container .sp-student-row {
+    margin-bottom: 2px;
+    background-color: #fff;
+    line-height: 56px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.seat-picker .sp-student-row-container .sp-student-row.last {
+    margin-bottom: 0px;
+}
+
+.seat-picker .sp-student-row-container .sp-student-row .seat-coord {
+    float: left;
+    width: 10%;
+    font-weight: 700;
+}
+
+.seat-picker .sp-student-row-container .sp-student-row .seat-student {
+    float: left;
+    width: 30%;
+}
+
+.seat-picker .sp-student-row-container .sp-student-row .seat-comment {
+    float: left;
+    width: 60%;
+}
+
+.seat-picker .sp-student-row-container .sp-student-row .seat-end {
+    clear: both;
+}

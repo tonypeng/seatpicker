@@ -1,0 +1,238 @@
+html {
+    font-family: /*'Helvetica Neue', */'Roboto', sans-serif;
+    color: #444;
+    background-color: #ececec;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+strong {
+    font-weight: 700;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.25) inset, 0px 1px 0px rgba(0, 0, 0, 0.15);
+}
+
+a {
+    color: #009688;
+    text-decoration: none;
+}
+
+#side-nav {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    bottom: 0;
+    width: 240px;
+    border-right: 1px solid rgba(0,0,0,0.14);
+    background-color: #fff;
+    z-index: 999;
+}
+
+#side-nav nav {
+}
+
+#side-nav nav .nav-entry {
+    padding-left: 24px;
+    height: 48px;
+    line-height: 48px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#side-nav nav .nav-entry:hover {
+    background-color: #f0f0f0;
+}
+
+#side-nav nav .nav-entry a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+}
+
+#side-nav nav .nav-entry.selected a{
+    color: #03a9f4;
+}
+
+#nav-welcome {
+    padding-left: 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.14);
+    font-size: 15px;
+    height: 80px;
+    line-height: 40px;
+}
+
+#content {
+    margin-top: 64px;
+    margin-left: 240px;
+    padding-left: 20px;
+}
+
+#header-container {
+    margin-left: 24px;
+}
+
+#header-title {
+    line-height: 64px;
+    font-size: 24px;
+    color: #fff;
+}
+
+#header-title-large {
+    line-height: 128px;
+    font-size: 24px;
+    color: #fff;
+}
+
+#login-content {
+    height: 100%;
+}
+
+#login-fake-header {
+    height: 128px;
+}
+
+#login-vertical-wrap {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+#login-vertical-center {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#login-island {
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius: 2px;
+    -moz-box-shadow: 0 0 3px #ccc;
+    -webkit-box-shadow: 0 0 3px #ccc;
+    box-shadow: 0 0 3px #ccc;
+}
+
+#login-island .content {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#login-island .copyright {
+    margin-bottom: 20px;
+    font-size: 10px;
+    text-align: center;
+}
+
+#login-island .headline {
+    border-bottom: 1px solid #009688;
+    line-height: 56px;
+    margin-bottom: 20px;
+}
+
+#login-island .error {
+    color: red;
+}
+
+#login-island .content > table {
+    width: 100%;
+    margin-bottom: 20px;
+
+}
+
+#login-island .content > table tr td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+#login-island button {
+    border: none;
+    width: 100%;
+    background-color: #009688;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    height: 48px;
+    font-size: 24px;
+}
+
+#login-island button table{
+    width: 100%;
+}
+
+.login-label {
+    width: 30%;
+    text-align: left;
+}
+
+.login-input {
+    width: 70%;
+}
+
+.login-input input[type=text], input[type=password] {
+    width: 245px;
+    padding: 2px;
+    height: 24px;
+    border: 1px solid #d0d1d5;
+    border-radius: 2px;
+}
+
+.bg-blue {
+    background-color: #03a9f4;
+}
+
+.bg-dark-red {
+    background-color: #d32f2f;
+}
+
+.bg-red {
+    background-color: #F44336;
+}
+
+.nav-drawer-icon {
+    background-image: url('../img/nav-drawer.svg');
+
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.title {
+    line-height: 36px;
+    font-size: 20px;
+}
+
+.vert-wrap {
+    display: table;
+    height: 100%;
+}
+
+.vert-center {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.headline {
+    font-size: 28px;
+}
