@@ -116,7 +116,7 @@ class DashboardController extends SiteController {
         </div>
         <script type="text/javascript">
             $('body').click(function() {
-                if ($(window).width() >= 1555) {
+                if ($(window).width() >= 1024) {
                     return;
                 }
 
@@ -129,7 +129,7 @@ class DashboardController extends SiteController {
 
             $(window).resize(function () {
                 console.log('resize');
-                if ($(window).width() >= 1555) {
+                if ($(window).width() >= 1024) {
                     var navDrawer = $('#side-nav');
 
                     navDrawer.show();
