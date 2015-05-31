@@ -85,6 +85,8 @@ class SeatPickerComponent extends Component {
 ?>
         </div>
         </div>
+    <p class="caption">Mouse over an occupied seat to see who's sitting there.</p>
+    <br />
 <?php if ($this->_renderUserRows) { ?>
 <div class="sp-student-row-container" id="<?= $this->p('seat_picker_student_rows') ?>">
 <?php foreach($this->_seats as $block_num => $block) {
