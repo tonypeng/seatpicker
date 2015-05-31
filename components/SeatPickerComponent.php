@@ -2,15 +2,17 @@
 
 class SeatPickerComponent extends Component {
     private $_userId;
+    private $_userGender;
     private $_seats;
     private $_editMode;
 
     private $_renderUserRows;
 
-    public function __construct($name, $userId, array $seatsAndStudents, $editMode) {
+    public function __construct($name, Session $session, array $seatsAndStudents, $editMode) {
         parent::__construct($name);
 
-        $this->_userId = $userId;
+        $this->_userId = $session->getStudentID();
+        $this->_userGender = $session->getGender();
         $this->_seats = $this->preprocessAllSeats($seatsAndStudents);
         $this->_editMode = $editMode;
     }
@@ -37,16 +39,22 @@ class SeatPickerComponent extends Component {
     private function preprocessSeats($seatsAndStudents) {
         $seatsOut = array();
 
+        $maxX = 0;
+        $maxY = 0;
+
         foreach ($seatsAndStudents as $seatAndStudent) {
             $seat = $seatAndStudent[0];
 
             $coordX = $seat->coordX();
             $coordY = $seat->coordY();
 
+            $maxX = max($coordX, $maxX);
+            $maxY = max($coordY, $maxY);
+
             $seatsOut[$coordY][$coordX] = $seatAndStudent;
         }
 
-        return $seatsOut;
+        return array($seatsOut, $maxX, $maxY);
     }
 
     public function renderView() {
@@ -54,8 +62,9 @@ class SeatPickerComponent extends Component {
 
 ?>
 <div id="<?= $this->p('seat_picker')?>" class="seat-picker">
-<?php //        <input type="text" id="<?= $this->p('seat_picker_search') " placeholder="Search for a student..." /><br />?>
+        <input type="text" id="<?= $this->p('seat_picker_search') ?>" placeholder="Student name" /> <button id="<?= $this->p('seat_picker_search_btn') ?>" class="sp-search-button">Search</button> <span class="caption">Results will be highlighted below.</span><br />
         <br />
+        <div class="sp-render-wrapper">
         <div id="<?= $this->p('seat_picker_render_area') ?>" class="sp-render-area">
 <?php
         $stmt = db()->prepare('SELECT * FROM `blocks`');
@@ -69,19 +78,28 @@ class SeatPickerComponent extends Component {
                     echo $this->renderSeatBlock($block);
                     break;
                 case 1:
-                    echo '<div style="position: absolute; top: '.$block['coord_y'].'px; left: '.$block['coord_x'].'px; width: 66px; height: 80px; text-align: center; border: 1px solid #000; border-radius: 4px; background-color: #fff">Podium</div>';
+                    echo '<div style="position: absolute; top: '.$block['coord_y'].'px; left: '.$block['coord_x'].'px; width: 42px; font-size: 11px; height: 80px; text-align: center; border: 1px solid #000; border-radius: 4px; background-color: #fff"><strong>Front</strong><br /><br />Podium</div>';
                     break;
             }
         }
 ?>
         </div>
+        </div>
 <?php if ($this->_renderUserRows) { ?>
-<br />
-
 <div class="sp-student-row-container" id="<?= $this->p('seat_picker_student_rows') ?>">
-<?php foreach($this->_seats as $block) { ?>
-<?php foreach($block as $row_num => $row) { ?>
+<?php foreach($this->_seats as $block_num => $block) {
+        $stmt = db()->prepare('SELECT `name` FROM `blocks` WHERE id=:id');
+        $stmt->execute(array(':id' => $block_num));
+        $block_details = $stmt->fetch();
 
+        $block_label = $block_num;
+        if ($block_details) $block_label = $block_details['name'];
+?>
+    <br />
+    <strong><?= $block_label ?></strong>
+    <br />
+    <br />
+<?php foreach($block as $block_num => $row) { ?>
             <?php
             foreach($row as $col_num => list($seat, $student)) {
                 if (!$student) continue;
@@ -89,7 +107,7 @@ class SeatPickerComponent extends Component {
                 $seat_coord = get_seat_label($seat);
             ?>
                 <div class="sp-student-row">
-                    <div class="seat-coord"><?= $seat_coord ?></div><div class="seat-student"><?= $student->fullName() ?></div><div class="seat-comment">Placeholder</div><div class="seat-end"></div>
+                    <div class="seat-coord"><?= $seat_coord ?></div><div class="seat-student"><?= $student->fullName() ?></div><div class="seat-comment"></div><div class="seat-end"></div>
                 </div>
             <?php } ?>
 <?php } ?>
@@ -97,7 +115,7 @@ class SeatPickerComponent extends Component {
 <?php } ?>
 </div>
 </div>
-<script type="text/javascript">seatpicker(document.getElementById('<?= $this->p('seat_picker')?>'), document.getElementById('<?= $this->p('seat_picker_search') ?>'), <?= $this->_editMode ? 'true' : 'false' ?>)</script>
+<script type="text/javascript">seatpicker(document.getElementById('<?= $this->p('seat_picker')?>'), document.getElementById('<?= $this->p('seat_picker_search') ?>'), document.getElementById('<?= $this->p('seat_picker_search_btn') ?>'), <?= $this->_editMode ? 'true' : 'false' ?>)</script>
 <?php
 
         return ob_get_clean();
@@ -110,19 +128,17 @@ class SeatPickerComponent extends Component {
         $boySeatURI = linkto('/img/boyemptyseat.png');
         $girlSeatURI = linkto('/img/girlemptyseat.png');
 
-        $seats = $this->preprocessSeats(get_all_seats_and_students_in_block($block['id']));
+        list($seats, $maxX, $maxY) = $this->preprocessSeats(get_all_seats_and_students_in_block($block['id']));
 
-        // possible optimization by calculating in preprocessSeats but it's 3:30am
-        $maxY = max(array_keys($seats));
 ?>
-        <table class="sp-table" style="position: absolute; top: <?= $block['coord_y'] ?>px; left: <?= $block['coord_x'] ?>px">
+        <table class="sp-table" style="position: absolute; top: <?= $block['coord_y'] ?>px; left: <?= $block['coord_x'] ?>px; width: <?= ($maxX+2)*14 ?>px">
             <?php
             for ($row_num = 0; $row_num <= $maxY; $row_num++) {
                 $row = $seats[$row_num];
-                $maxX = max(array_keys($row));
+                $row_letter = chr(ord('A')+(($row_num) % 26));
                 ?>
                 <tr>
-                    <th><?= $row_num+1 ?></th>
+                    <th><?= $row_letter ?></th>
                     <?php
                     for ($x = 0; $x <= $maxX; $x++) {
                         if (!isset($row[$x])) {
@@ -135,8 +151,11 @@ class SeatPickerComponent extends Component {
                         $seatImg = $student ?
                             ($student->studentId() == $this->_userId ? $userTakenSeatURI : $takenSeatURI) :
                             ($seat->gender() ? $girlSeatURI : $boySeatURI);
+
+                        $editable = ($this->_editMode && !$student && $seat->gender() == $this->_userGender) ? 'editable' : '';
+
                         ?>
-                        <td title="<?= $student ? $student->fullName() : '' ?>" data-id="<?= $seat->id() ?>" data-gender="<?= $seat->gender() ?>" data-taken="<?= $student ? 'true' : 'false' ?>" class="<?= $this->_editMode ? 'editable' : '' ?>">
+                        <td title="<?= $student ? $student->fullName() : '' ?>" data-id="<?= $seat->id() ?>" data-gender="<?= $seat->gender() ?>" data-taken="<?= $student ? 'true' : 'false' ?>" class="<?= $editable?>">
                             <img src="<?= $seatImg ?>" />
                         </td>
                     <?php } ?>

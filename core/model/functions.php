@@ -9,6 +9,13 @@ require_once __DIR__ . '/Student.php';
 function get_seat_label(Seat $seat=null) {
     if (!$seat) return '';
 
+    $row_letter = chr(ord('A')+($seat->coordY() % 26));
+    return $row_letter.($seat->coordX()+1);
+}
+
+function get_seat_label_with_block(Seat $seat=null) {
+    if (!$seat) return '';
+
     $stmt = db()->prepare('SELECT * FROM `blocks` WHERE id=:id');
     $stmt->execute(array(':id' => $seat->block()));
 
@@ -36,7 +43,7 @@ function get_student_seat($id) {
 }
 
 function get_all_seats_in_block($block_id) {
-    $stmt = db()->prepare('SELECT * FROM `seats` WHERE block=:block');
+    $stmt = db()->prepare('SELECT * FROM `seats` WHERE block=:block ORDER BY block ASC, coord_y ASC, coord_x ASC');
     try {
         $stmt->execute(array(':block' => $block_id));
     } catch (PDOException $e) {
@@ -52,7 +59,8 @@ function get_all_seats_and_students_in_block($block_id) {
         LEFT JOIN `student_seat_assoc` t
             JOIN `students` st ON st.id=t.student
         ON se.id=t.seat
-        WHERE block=:block');
+        WHERE block=:block
+        ORDER BY se.block ASC, se.coord_y ASC, se.coord_x ASC');
     try {
         $stmt->execute(array(':block' => $block_id));
     } catch (PDOException $e) {
@@ -78,7 +86,7 @@ function get_all_seats_and_students_in_block($block_id) {
 }
 
 function get_all_seats() {
-    $stmt = db()->prepare('SELECT * FROM `seats`');
+    $stmt = db()->prepare('SELECT * FROM `seats` ORDER BY block ASC, coord_y ASC, coord_x ASC');
     try {
         $stmt->execute();
     } catch (PDOException $e) {
@@ -93,7 +101,8 @@ function get_all_seats_and_students() {
         se.id as se_id, se.coord_x, se.coord_y, se.gender, se.block FROM `seats` se
         LEFT JOIN `student_seat_assoc` t
             JOIN `students` st ON st.id=t.student
-        ON se.id=t.seat');
+        ON se.id=t.seat
+        ORDER BY se.block ASC, se.coord_y ASC, se.coord_x ASC');
     try {
         $stmt->execute();
     } catch (PDOException $e) {

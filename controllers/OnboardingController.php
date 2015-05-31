@@ -75,7 +75,7 @@ class OnboardingController extends SiteController {
                 <?php if ($step < 3) { ?>
                 <a class="control" href="<?= linkto('/onboarding?step='.($step+1)) ?>">Next</a>
                 <?php } else { ?>
-                    <a class="control" href="<?= linkto('/dashboard') ?>">Finish</a>
+                    <a class="control" href="<?= linkto('/dashboard?page=edit') ?>">Finish</a>
                 <?php } ?>
             </div>
             <div style="clear: both;"></div>
@@ -109,7 +109,7 @@ class OnboardingController extends SiteController {
         $female_selected = $session->getGender() ? ' selected="selected"' : '';
 
         ?>
-            Here's the information we have for you. Take a look and ensure it is correct.<br />
+            Here's the information we have on file for you. Take a look and ensure it is correct.<br />
             <br />
             <form method="POST" action="<?= linkto('/onboarding/submit') ?>">
                 <table style="width: 100%">
@@ -118,9 +118,6 @@ class OnboardingController extends SiteController {
                     </tr>
                     <tr>
                         <th class="login-label">Last name</th><td class="login-input"><input type="text" value="<?= $session->getLastName() ?>" name="last_name" /></td>
-                    </tr>
-                    <tr>
-                        <th class="login-label">Gender</th><td class="login-input"><select name="gender"><option value="0"<?= $male_selected ?>>Male</option><option value="1"<?= $female_selected ?>>Female</option></select></td>
                     </tr>
                 </table>
                 <input type="hidden" name="type" value="name_gender" />

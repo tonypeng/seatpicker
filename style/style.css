@@ -19,6 +19,7 @@ header {
     left: 0;
     right: 0;
     box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.25) inset, 0px 1px 0px rgba(0, 0, 0, 0.15);
+    z-index: 999;
 }
 
 a {
@@ -27,6 +28,7 @@ a {
 }
 
 #side-nav {
+    display: none;
     position: fixed;
     top: 64px;
     left: 0;
@@ -35,6 +37,27 @@ a {
     border-right: 1px solid rgba(0,0,0,0.14);
     background-color: #fff;
     z-index: 999;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#side-nav #side-nav-container {
+    min-height: 100%;
+    padding-bottom: 96px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+#side-nav #side-nav-container .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 48px;
+    padding: 24px;
+    line-height: 48px;
+    color: #212121;
+    border-top: 1px solid #e0e0e0;
+    font-size: 14px;
 }
 
 #side-nav nav {
@@ -72,12 +95,11 @@ a {
 
 #content {
     padding-top: 96px;
-    margin-left: 240px;
-    padding-left: 20px;
 }
 
 #header-container {
-    margin-left: 24px;
+    padding-left: 24px;
+    width: 100%;
 }
 
 #header-container .subtitle {
@@ -270,8 +292,26 @@ a {
 }
 
 .nav-drawer-icon {
-    background-image: url('../img/nav-drawer.svg');
+    display: inline-block;
+    height: 64px;
+    width: 24px;
+    padding-left: 36px;
+    background: url('../img/ic_menu_wht_1x.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    border: none;
+    vertical-align: bottom;
+    cursor: pointer;
+}
 
+.logout-btn {
+    border: 0;
+    background: none;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #009688;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .centered {
@@ -304,4 +344,22 @@ a {
 
 .headline {
     font-size: 28px;
+}
+
+.caption {
+    font-size: 14px;
+}
+
+@media screen and (min-width: 1024px) {
+    .nav-drawer-icon {
+        display: none;
+    }
+
+    #side-nav {
+        display: block;
+    }
+
+    #content {
+        margin-left: 240px;
+    }
 }

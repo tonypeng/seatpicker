@@ -1,8 +1,8 @@
-function seatpicker(sp, s, e) {
+function seatpicker(sp, s, sb, e) {
 
     $(sp).find(".sp-table").each(function() {
         $(this).find("td").each(function() {
-            if (e) {
+            if (e && $(this).hasClass('editable')) {
                 $(this).click(function() {
                     var taken = $(this).data('taken');
                     var gender = $(this).data('gender');
@@ -23,6 +23,24 @@ function seatpicker(sp, s, e) {
                 });
             }
             $(this).qtip();
+        });
+    });
+
+    $(sb).click(function() {
+        var studentName = $(s).val().toLowerCase();
+
+        if (studentName.length <= 0) return;
+
+        $(sp).find(".sp-table").each(function() {
+            $(this).find("td").each(function() {
+                var title = $(this).attr('title');
+
+                if (title && title.toLowerCase().indexOf(studentName) >= 0) {
+                    $(this).addClass('highlight');
+                } else {
+                    $(this).removeClass('highlight');
+                }
+            });
         });
     });
 }

@@ -27,6 +27,15 @@ class PostSeatController extends Controller {
 
         $session = $this->getSessionManager()->getSession();
 
+        $stmt = db()->prepare('SELECT gender FROM `seats` WHERE id=:id');
+        $stmt->execute(array(':id' => $seat));
+
+        $row = $stmt->fetch();
+
+        if (!$row || $row['gender'] != $session->getGender()) {
+            return json_encode(array('error' => 'This seat is reserved for a '.($row['gender'] ? 'girl':'boy').'.'));
+        }
+
         // db constraints should ensure unique and valid values
         try {
             db()->beginTransaction();

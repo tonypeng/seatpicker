@@ -23,27 +23,19 @@ class OnboardingUpdateController extends SiteController {
 
         switch ($type) {
             case 'name_gender':
-                if (!$req->hasval('first_name') || !$req->hasval('last_name') || !$req->hasval('gender')) {
+                if (!$req->hasval('first_name') || !$req->hasval('last_name')) {
                     throw new RedirectException(linkto('index.php'));
                 }
 
                 $first_name = $req->getString('first_name');
                 $last_name = $req->getString('last_name');
-                $gender = $req->getInt('gender');
-
-
-                if ($gender != 0 && $gender != 1) {
-                    throw new RedirectException(linkto('index.php'));
-                }
-
 
                 try {
-                    $stmt = db()->prepare('UPDATE `students` SET first_name=:first_name, last_name=:last_name, gender=:gender WHERE id=:id');
+                    $stmt = db()->prepare('UPDATE `students` SET first_name=:first_name, last_name=:last_name WHERE id=:id');
                     $stmt->execute(array(
                         ':id' => $this->getSessionManager()->getSession()->getUserID(),
                         ':first_name' => $first_name,
                         ':last_name' => $last_name,
-                        ':gender' => $gender,
                     ));
                 } catch (PDOException $pdoe) {
 
