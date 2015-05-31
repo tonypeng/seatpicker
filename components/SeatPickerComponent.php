@@ -78,7 +78,7 @@ class SeatPickerComponent extends Component {
                     echo $this->renderSeatBlock($block);
                     break;
                 case 1:
-                    echo '<div style="position: absolute; top: '.$block['coord_y'].'px; left: '.$block['coord_x'].'px; width: 42px; font-size: 11px; height: 80px; text-align: center; border: 1px solid #000; border-radius: 4px; background-color: #fff"><br /><br />Podium</div>';
+                    echo '<div style="position: absolute; top: '.$block['coord_y'].'px; left: '.$block['coord_x'].'px; width: 42px; font-size: 11px; height: 60px; text-align: center; border: 1px solid #000; border-radius: 4px; background-color: #fff"><br /><br />Podium</div>';
                     break;
             }
         }
