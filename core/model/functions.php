@@ -42,6 +42,17 @@ function get_student_seat($id) {
     return null;
 }
 
+function get_seat_student($id) {
+    $stmt = db()->prepare('SELECT s.* FROM `student_seat_assoc` t JOIN `students` s ON t.seat=:id AND t.student=s.id');
+    $stmt->execute(array(':id' => $id));
+
+    if ($row = $stmt->fetch()) {
+        return Student::loadFully($row['id'], $row['student_id'], $row['first_name'], $row['last_name'], $row['phonetic_name'], $row['gender']);
+    }
+
+    return null;
+}
+
 function get_all_seats_in_block($block_id) {
     $stmt = db()->prepare('SELECT * FROM `seats` WHERE block=:block ORDER BY block ASC, coord_y ASC, coord_x ASC');
     try {

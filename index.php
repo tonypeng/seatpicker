@@ -27,6 +27,8 @@ $controllerMap = array(
     'logout' => 'LogoutController',
     'signout' => 'SignoutController',
     'ajax/post_seat' => 'PostSeatController',
+    'admin/viewseat' => 'AdminSeatController',
+    'admin/changeseat' => 'AdminChangeSeatSubmitController',
     'intern/create_seats' => 'CreateSeatsController',
     'intern/create_students' => 'CreateStudentsController',
 );
