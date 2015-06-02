@@ -29,6 +29,7 @@ $controllerMap = array(
     'ajax/post_seat' => 'PostSeatController',
     'admin/viewseat' => 'AdminSeatController',
     'admin/changeseat' => 'AdminChangeSeatSubmitController',
+    'admin/export.csv' => 'AdminExportSeatsCSV',
     'intern/create_seats' => 'CreateSeatsController',
     'intern/create_students' => 'CreateStudentsController',
 );

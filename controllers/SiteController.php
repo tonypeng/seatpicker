@@ -8,25 +8,25 @@ abstract class SiteController extends Controller {
 
         ob_start();
         ?>
-        <!DOCTYPE HTML>
-        <html>
-        <head>
-            <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-            <title><?= $this->getPageTitle(); ?></title>
-            <link href='http://fonts.googleapis.com/css?family=Roboto:400italic,700,400' rel='stylesheet' type='text/css'>
-            <link rel="stylesheet" type="text/css" href="<?= linkto('/style/reset.css'); ?>" />
-            <link rel="stylesheet" type="text/css" href="<?= linkto('/style/border.css'); ?>" />
-            <link rel="stylesheet" type="text/css" href="<?= linkto('/style/spacing.css'); ?>" />
-            <link rel="stylesheet" type="text/css" href="<?= linkto('/style/style.css'); ?>" />
-            <link rel="stylesheet" type="text/css" href="<?= linkto('/style/components.css'); ?>" />
-            <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.css" />
-            <script src="<?= linkto('/script/jquery-2.1.1.min.js') ?>" type="text/javascript"></script>
-            <script src="<?= linkto('/script/seatpicker.component.js') ?>" type="text/javascript"></script>
-            <script src="http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.js" type="text/javascript"></script>
-            <link rel="icon" href="<?= linkto('/favicon.ico'); ?>" />
-        </head>
-        <body>
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title><?= $this->getPageTitle(); ?></title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400italic,700,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="<?= linkto('/style/reset.css'); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?= linkto('/style/border.css'); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?= linkto('/style/spacing.css'); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?= linkto('/style/style.css'); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?= linkto('/style/components.css'); ?>" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.css" />
+    <script src="<?= linkto('/script/jquery-2.1.1.min.js') ?>" type="text/javascript"></script>
+    <script src="<?= linkto('/script/seatpicker.component.js') ?>" type="text/javascript"></script>
+    <script src="http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.js" type="text/javascript"></script>
+    <link rel="icon" href="<?= linkto('/favicon.ico'); ?>" />
+</head>
+<body>
         <?php
 
         $header =  ob_get_clean();
@@ -36,8 +36,8 @@ abstract class SiteController extends Controller {
 
         ob_start();
         ?>
-        </body>
-        </html>
+</body>
+</html>
         <?php
         $footer = ob_get_clean();
 
